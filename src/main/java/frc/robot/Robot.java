@@ -37,7 +37,7 @@ public class Robot extends TimedRobot
 
   //Spark _centerMotor = new Spark(0);
 	
-	Joystick _gamepad = new Joystick(0);
+  Joystick _gamepad = new Joystick(0);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -62,7 +62,6 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
-
   }
 
  
@@ -90,6 +89,7 @@ public class Robot extends TimedRobot
         break;
     }
   }
+  // Not using autonomous
 
  
   @Override
@@ -98,27 +98,42 @@ public class Robot extends TimedRobot
 
     _leftFollow.follow(_leftLead);
     _rightFollow.follow(_rightLead);
+      // Sets what the "follow" motor to follow "lead" motor
 
 		/* Disable motor controllers */
 		_rightLead.set(ControlMode.PercentOutput, 0);
 		_leftLead.set(ControlMode.PercentOutput, 0);
-		
+    
+      // Sets the percentage of speed. 
+      // Always set to 0.
+    
+    
 		/* Set Neutral mode */
 		_leftLead.setNeutralMode(NeutralMode.Coast);
 		_rightLead.setNeutralMode(NeutralMode.Coast);
-		
+      // Defines how it stops.
+      // If set to COAST, it will gradually slow down when there's no throttle.
+      // If set to BREAK, it will stop immediately.
+    
+    
 		/* Configure output direction */
 		_leftLead.setInverted(false);
-		_rightLead.setInverted(true);
+    _rightLead.setInverted(true);
+      // Inverts the wheel direction.
+      // Important to do so that way the wheels don't fight each other
+      // If FALSE, the wheels are not inverted. If TRUE, they're inverted.
 		
-		System.out.println("This is a basic arcade drive using Arbitrary Feed Forward.");
+    System.out.println("This is a basic arcade drive using Arbitrary Feed Forward.");
+      // Prints out whatever is in the double quotation marks.
   }
   
   @Override
   public void teleopPeriodic() 
   {
-
-    		// Gamepad processing
+    SmartDashboard.putString("Robot ID:", "Lucky's robot");
+        // Gamepad processing
+        // When the SHUFFLEboard (not dashboard) pops up, it will print out the TWO strings.
+        // There needs to be TWO strings.
 		double forward = -1 * _gamepad.getY(); 		// Left Stick Y
 		double turn = -1 *_gamepad.getX();				// Left Stick Y
 		
@@ -137,11 +152,16 @@ public class Robot extends TimedRobot
 		// Calculate the difference between the throttles, and use that for the center motor (quick and dirty, but it works)
 		//centerMotorValue = (0 - throttleL) + (throttleR);
 
-		// Basic Arcade Drive using PercentOutput along with Arbitrary FeedForward supplied by turn
-		_leftLead.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, +turn);
+		//Basic Arcade Drive using PercentOutput along with Arbitrary FeedForward supplied by turn
+    _leftLead.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, +turn);
+      // The positive turn is biased towards the left side.
+
 		_rightLead.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, -turn);
-		
-		//_centerMotor.set(centerMotorValue);
+      // The negative turn is biased to the right side.
+    // If asked to turn left or right
+    // The direction steered will be controled by the motor biased to the direction.
+
+		// _centerMotor.set(centerMotorValue);
 
   }
 
@@ -151,20 +171,27 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() 
   {
-
+    // There's nothing in here...
+    // What does this area do? I forgot if we went over it or not.
   }
 
   double Deadband(double value) 
   {
+    // The dead band is used to clean up the code a bit
+    // Stops the robot from "twitching" when it's driving.
 		/* Upper deadband */
 		if (value >= +0.05) 
 			return value;
-		
+    // The value will return if the throttle is >= to 0.05   
+
 		/* Lower deadband */
 		if (value <= -0.05)
-			return value;
+      return value;
+    // The value will also return if it's <= -0.05.
 		
 		/* Outside deadband */
-		return 0;
+    return 0;
+    // And it will return if the value is at 0.
+    // Desclaimer: I know what the DEADBAND is used for, but I don't know if what I commented was correct.
 	}
 }
