@@ -7,8 +7,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+//Libraries are imported for reference throughout the code for reference. 
+
+import edu.wpi.first.wpilibj.TimedRobot; // Following 7 lines are libraries that are utilized
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser; 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -19,34 +21,38 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 //import edu.wpi.first.wpilibj.Spark;
 //import edu.wpi.first.wpilibj.SpeedController;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick; // Another library imported
 
 
-public class Robot extends TimedRobot 
+public class Robot extends TimedRobot //This is a public class. It can be extended to other classes
 {
-  private static final String kDefaultAuto = "Default";
+  private static final String kDefaultAuto = "Default"; //Private methods created. Can only be seen in Robot.java
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  TalonSRX _leftLead = new TalonSRX(0);
-  TalonSRX _leftFollow = new TalonSRX(1);
-
-  TalonSRX _rightLead = new TalonSRX(2);
+  TalonSRX _leftLead = new TalonSRX(0);  //Left motors created; 0 is a lead and 1 follows 0.
+  TalonSRX _leftFollow = new TalonSRX(1);  //TalonSRX is an example of a piece of code read by a library
+ 
+  TalonSRX _rightLead = new TalonSRX(2);  //Right motors created; 2 is a lead and 3 follows 2. 
   TalonSRX _rightFollow = new TalonSRX(3);
+
+  /* Leader and follower assigns a motor to a leader positon and you assign another motor as a follower. 
+  As a follower the motor that follows does anything the leader motor tells it too.
+  If it says drive at 50% it will drive at 50% */
 
   //Spark _centerMotor = new Spark(0);
 	
-	Joystick _gamepad = new Joystick(0);
+	Joystick _gamepad = new Joystick(0);  // New joystick created
 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
-  public void robotInit() 
+  public void robotInit()  //Initial 
   {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.setDefaultOption("Default Auto", kDefaultAuto); //Setting default option to default auto
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
   }
@@ -60,25 +66,27 @@ public class Robot extends TimedRobot
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() 
+  public void robotPeriodic() //There is no code in here.
   {
 
   }
 
  
   @Override
-  public void autonomousInit() 
+  public void autonomousInit() //Initialized code for autonomous goes here. Haha. So says the thing when you hover
   {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
   }
 
+    /*Autonoumous is a period of time at the beginning of a match in which the driver does not have control.
+    In the 2019 year (current year at the time of these comments being written) autonomous is not necessarily needed*/
   /**
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() 
+  public void autonomousPeriodic() //Periodically called during autonomous
   {
     switch (m_autoSelected) {
       case kCustomAuto:
@@ -117,7 +125,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-
+    SmartDashboard.putString("Robot ID:" , "Katie's Robot");
     		// Gamepad processing
 		double forward = -1 * _gamepad.getY(); 		// Left Stick Y
 		double turn = -1 *_gamepad.getX();				// Left Stick Y
@@ -168,3 +176,4 @@ public class Robot extends TimedRobot
 		return 0;
 	}
 }
+// 
