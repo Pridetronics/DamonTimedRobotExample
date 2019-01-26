@@ -16,8 +16,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedController;
+//import edu.wpi.first.wpilibj.Spark;
+//import edu.wpi.first.wpilibj.SpeedController;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -122,20 +122,20 @@ public class Robot extends TimedRobot
 		double forward = -1 * _gamepad.getY(); 		// Left Stick Y
 		double turn = -1 *_gamepad.getX();				// Left Stick Y
 		
-		double throttleL = _gamepad.getZ();			// Front Lower Left Throttle
-		double throttleR = _gamepad.getThrottle();	// Front Lower Right Throttle
+		// double throttleL = _gamepad.getZ();			// Front Lower Left Throttle
+		// double throttleR = _gamepad.getThrottle();	// Front Lower Right Throttle
 		
 		// This will carry a calculated value to set the Center Motor value
-		double centerMotorValue = 0;
+		// double centerMotorValue = 0;
 		
 		// Use the below Deadband function to filter out idle noise on the inputs
 		forward = Deadband(forward);
 		turn = Deadband(turn);
-		throttleR = Deadband(throttleR);
-		throttleL = Deadband(throttleL);
+		// throttleR = Deadband(throttleR);
+		// throttleL = Deadband(throttleL);
 		
 		// Calculate the difference between the throttles, and use that for the center motor (quick and dirty, but it works)
-		centerMotorValue = (0 - throttleL) + (throttleR);
+		//centerMotorValue = (0 - throttleL) + (throttleR);
 
 		// Basic Arcade Drive using PercentOutput along with Arbitrary FeedForward supplied by turn
 		_leftLead.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, +turn);
