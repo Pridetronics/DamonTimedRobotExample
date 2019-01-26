@@ -22,7 +22,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Joystick;
 
 
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -58,12 +59,15 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
+
   }
 
  
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
@@ -73,7 +77,8 @@ public class Robot extends TimedRobot {
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic() 
+  {
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
@@ -87,7 +92,8 @@ public class Robot extends TimedRobot {
 
  
   @Override
-	public void teleopInit(){
+  public void teleopInit()
+  {
 
     _leftFollow.follow(_leftLead);
     _rightFollow.follow(_rightLead);
@@ -108,7 +114,8 @@ public class Robot extends TimedRobot {
   }
   
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() 
+  {
 
     		// Gamepad processing
 		double forward = -1 * _gamepad.getY(); 		// Left Stick Y
@@ -141,11 +148,13 @@ public class Robot extends TimedRobot {
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
 
   }
 
-  double Deadband(double value) {
+  double Deadband(double value) 
+  {
 		/* Upper deadband */
 		if (value >= +0.05) 
 			return value;
