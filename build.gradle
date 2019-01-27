@@ -60,6 +60,9 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
 
+// to generate javadocs:
+// ./gradlew javadocJar
+// look for build/docs/javadoc/index.html
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
