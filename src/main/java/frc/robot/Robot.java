@@ -24,8 +24,8 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import edu.wpi.first.wpilibj.Joystick; // Another library imported
 
 /**
- * @author
- * @version
+ * @author Damon Dunsmore
+ * @version $Id$
  */
 public class Robot extends TimedRobot // This is a public class. It can be extended to other classes
 {
@@ -190,7 +190,13 @@ public class Robot extends TimedRobot // This is a public class. It can be exten
     // What does this area do? I forgot if we went over it or not.
   }
 
-  double Deadband(double value) {
+  /**
+   * reduce sensitivity to inputs
+   * 
+   * @param value
+   * @return value or zero
+   */
+  private double Deadband(double value) {
     // The dead band is used to clean up the code a bit
     // Stops the robot from "twitching" when it's driving.
     /* Upper deadband */
